@@ -29,6 +29,13 @@ public class UserInfoController {
     private static Logger log = Logger.getLogger(UserInfoController.class);
 
 
+    /**
+     * 单文件上传
+     * @param files
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public String upload(@RequestParam("file") MultipartFile files, HttpServletRequest request, HttpServletResponse response){
@@ -58,23 +65,39 @@ public class UserInfoController {
         return json.toString();
     }
 
+    /**
+     * 用来测试的一些东西
+     * @return
+     */
     @RequestMapping("/test")
     private String test(){
 
         return "test";
     }
+
+
+    /**
+     * 用来测试websocket
+     * @return
+     */
     @RequestMapping("/webs")
     private String webs(){
 
         return "webs";
     }
-
+    /**
+     * 用来测试websocket
+     * @return
+     */
     @RequestMapping("/webs2")
     private String webs2(){
 
         return "webs2";
     }
-
+    /**
+     * 用来测试websocket通过服务端给前端推送消息
+     * @return
+     */
     @RequestMapping("/sendToUser")
     @ResponseBody
     private String sendToUser(String message,String sid){
@@ -85,7 +108,10 @@ public class UserInfoController {
         }
         return "OK";
     }
-
+    /**
+     * 用来测试websocket通过服务端给前端推送消息
+     * @return
+     */
     @RequestMapping("/sendAll")
     @ResponseBody
     private String sendAll(String message){
