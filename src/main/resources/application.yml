@@ -2,7 +2,12 @@ server:
   port: 9999
   servlet:
     context-path: /
+  tomcat:
+    max-http-form-post-size: 10240000
+  max-http-header-size: 10240000
 spring:
+  resources:
+    static-locations: classpath:static/,file:static/
   datasource:
     url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&useSSL=true
     data-username: root

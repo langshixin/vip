@@ -5,6 +5,8 @@ import com.lang520.vip.config.ProductWebSocket;
 import com.lang520.vip.utils.FileUtil;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ResourceUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -28,7 +33,7 @@ import java.util.Date;
 public class UserInfoController {
     private static Logger log = Logger.getLogger(UserInfoController.class);
 
-
+    private static String UPLOAD_PATH = "fileData/upload";
     /**
      * 单文件上传
      * @param files
@@ -45,18 +50,12 @@ public class UserInfoController {
         log.info("-------------------开始调用上传文件upload接口-------------------");
         try{
             String name = files.getOriginalFilename();
-            String path1 = this.getClass().getResource("/").getPath();
-            //获取类加载的根路径
-            System.out.println(path1);
-//            String path2 = this.getClass().getResource("").getPath();
-//            //获取当前类的所在工程路径
-//            System.out.println(path2);
-            String path = this.getClass().getResource("/").getPath();
-//            int index = path.indexOf("Shopping");
-//            path = path.substring(0, index + "Shopping".length()) + "/WebContent/resources/upload/";
-            path = path + File.separator + name;
-            File uploadFile = new File(path);
-            files.transferTo(uploadFile);
+            Path directory = Paths.get(UPLOAD_PATH);
+
+            if(!Files.exists(directory)){
+                Files.createDirectories(directory);
+            }
+            files.transferTo(directory.resolve(name));
         }catch(Exception e){
             msg="添加失败";
         }
@@ -71,10 +70,8 @@ public class UserInfoController {
      */
     @RequestMapping("/test")
     private String test(){
-
         return "test";
     }
-
 
     /**
      * 用来测试websocket
@@ -82,18 +79,18 @@ public class UserInfoController {
      */
     @RequestMapping("/webs")
     private String webs(){
-
         return "webs";
     }
+
     /**
      * 用来测试websocket
      * @return
      */
     @RequestMapping("/webs2")
     private String webs2(){
-
         return "webs2";
     }
+
     /**
      * 用来测试websocket通过服务端给前端推送消息
      * @return
@@ -108,6 +105,7 @@ public class UserInfoController {
         }
         return "OK";
     }
+
     /**
      * 用来测试websocket通过服务端给前端推送消息
      * @return
@@ -157,9 +155,9 @@ public class UserInfoController {
         JSONObject result=new JSONObject();
         try {
             int index;
-            String uploadFolderPath = this.getClass().getResource("/").getPath();
+//            String uploadFolderPath =  new File(ResourceUtils.getURL("classpath:").getPath()).getAbsolutePath();
 
-            String mergePath = uploadFolderPath + "\\fileDate\\" + id + "\\";
+            String mergePath = Paths.get(UPLOAD_PATH) + File.separator  + id + File.separator ;
             String ext = name.substring(name.lastIndexOf("."));
 
             // 判断文件是否分块
@@ -169,34 +167,32 @@ public class UserInfoController {
                 // 将文件分块保存到临时文件夹里，便于之后的合并文件
                 FileUtil.saveFile(mergePath, fileName, file, request);
                 // 验证所有分块是否上传成功，成功的话进行合并
-                FileUtil.Uploaded(md5value, guid, chunk, chunks, mergePath, fileName, ext, request);
+                String uploaded = FileUtil.Uploaded(md5value, guid, chunk, chunks, mergePath, fileName, ext, request);
+                if(!StringUtils.isEmpty(uploaded)){
+                    result.put("url", uploaded);
+                }
             } else {
                 SimpleDateFormat year = new SimpleDateFormat("yyyy");
                 SimpleDateFormat m = new SimpleDateFormat("MM");
                 SimpleDateFormat d = new SimpleDateFormat("dd");
                 Date date = new Date();
-                String destPath = uploadFolderPath + "\\fileDate\\" + "video" + "\\" + year.format(date) + "\\"
-                        + m.format(date) + "\\" + d.format(date) + "\\";// 文件路径
+                String destPath = Paths.get(UPLOAD_PATH)  +File.separator  + "video" + File.separator  + year.format(date) + File.separator 
+                        + m.format(date) + File.separator  + d.format(date) + File.separator ;// 文件路径
                 String newName = System.currentTimeMillis() + ext;// 文件新名称
                 // fileName = guid + ext;
                 // 上传文件没有分块的话就直接保存目标目录
                 FileUtil.saveFile(destPath, newName, file, request);
+                result.put("url", destPath+newName);
             }
-
         } catch (Exception ex) {
             ex.printStackTrace();
             result.put("code", 0);
             result.put("msg", "上传失败");
-            result.put("data", null);
             return result.toString();
         }
         result.put("code", 1);
         result.put("msg", "上传成功");
         return result.toString();
     }
-
-
-
-
 
 }

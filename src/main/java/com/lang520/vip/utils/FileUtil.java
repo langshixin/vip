@@ -1,9 +1,11 @@
 package com.lang520.vip.utils;
 
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,7 +20,6 @@ import java.util.stream.Collectors;
  * @date 2019/11/26 17:03
  */
 public class FileUtil {
-
 
     public DataFile upload(HttpServletRequest request, MultipartFile[] myfiles, String fileT, String modelCode)
             throws Exception {
@@ -189,7 +190,7 @@ public class FileUtil {
 
     private final static List<UploadInfo> uploadInfoList = new ArrayList<>();
 
-    public static void Uploaded(String md5, String guid, String chunk, String chunks, String uploadFolderPath,
+    public static String Uploaded(String md5, String guid, String chunk, String chunks, String uploadFolderPath,
                                 String fileName, String ext, HttpServletRequest request) throws Exception {
         synchronized (uploadInfoList) {
             if ((md5!=null&&!md5.equals(""))&&(chunks!=null&&!chunks.equals(""))&&!isNotExist(md5,chunk)) {
@@ -198,13 +199,14 @@ public class FileUtil {
         }
         boolean allUploaded = isAllUploaded(md5, chunks);
         int chunksNumber = Integer.parseInt(chunks);
-
+        String url = null;
         if (allUploaded) {
-            mergeFile(chunksNumber, ext, guid, uploadFolderPath, request);
+             url = mergeFile(chunksNumber, ext, guid, uploadFolderPath, request);
             // fileService.save(new
             // com.zhangzhihao.FileUpload.Java.Model.File(guid + ext, md5, new
             // Date()));
         }
+        return url;
     }
 
     //判断在uploadInfoList是否有存在MD5和chunk都相同的元素
@@ -241,7 +243,7 @@ public class FileUtil {
     }
 
     @SuppressWarnings("all")
-    private static void mergeFile(int chunksNumber, String ext, String guid, String uploadFolderPath,
+    private static String mergeFile(int chunksNumber, String ext, String guid, String uploadFolderPath,
                                   HttpServletRequest request) {
         SimpleDateFormat year = new SimpleDateFormat("yyyy");
         SimpleDateFormat m = new SimpleDateFormat("MM");
@@ -249,9 +251,16 @@ public class FileUtil {
         Date date = new Date();
         /* 合并输入流 */
         String mergePath = uploadFolderPath;
-
-        String destPath = getRealPath(request) +File.separator +"fileDate"+File.separator + "video" + File.separator + year.format(date) + File.separator
-                + m.format(date) + File.separator + d.format(date) + File.separator;// 文件路径
+//        getRealPath(request)
+//        FileUtil.class.getResource("/").getPath()
+       ;
+        String destPath = null;// 文件路径
+        try {
+            destPath = Paths.get("fileData/upload")+File.separator + "video" + File.separator + year.format(date) + File.separator
+                    + m.format(date) + File.separator + d.format(date) + File.separator;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         String newName = System.currentTimeMillis() + ext;// 文件新名称
 
         SequenceInputStream s;
@@ -271,14 +280,14 @@ public class FileUtil {
             saveStreamToFile(s, destPath, newName);
             // 删除保存分块文件的文件夹
             deleteFolder(mergePath);
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (Exception e) {
+
+            return  destPath+newName;
+        }catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
+        return "";
     }
 
     private static boolean deleteFolder(String mergePath) {
