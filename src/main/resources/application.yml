@@ -1,11 +1,19 @@
 server:
-  port: 9999
+  port: 80
   servlet:
     context-path: /
   tomcat:
     max-http-form-post-size: 10240000
   max-http-header-size: 10240000
 spring:
+#  security:
+#    user:
+#      name: admin
+#      password: admin
+#  data:
+#    elasticsearch:
+#      cluster-nodes: 127.0.0.1:9300
+#      cluster-name: my-application
   resources:
     static-locations: classpath:static/,file:static/
   datasource:

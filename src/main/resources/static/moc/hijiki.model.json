@@ -1,0 +1,42 @@
+{
+  "version": "Sample 1.0.0",
+  "model": "hijiki.moc",
+  "textures": [
+    "texture_00.png"
+  ],
+  "name": "hijiki",
+  "pose": "hijiki.pose.json",
+  "motions": {
+    "idle": [
+      {
+        "file": "00_idle.mtn"
+      }
+    ],
+    "": [
+      {
+        "file": "01.mtn"
+      },
+      {
+        "file": "02.mtn"
+      },
+      {
+        "file": "03.mtn"
+      },
+      {
+        "file": "04.mtn"
+      },
+      {
+        "file": "05.mtn"
+      },
+      {
+        "file": "06.mtn"
+      },
+      {
+        "file": "07.mtn"
+      },
+      {
+        "file": "08.mtn"
+      }
+    ]
+  }
+}

@@ -1,11 +1,22 @@
 package com.lang520.vip.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.lang520.vip.config.PayProducer;
 import com.lang520.vip.config.ProductWebSocket;
+import com.lang520.vip.dao.UserReposiory;
+import com.lang520.vip.entity.UserEntity;
 import com.lang520.vip.utils.FileUtil;
+import com.lang520.vip.utils.ThreadReptile;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.log4j.Logger;
+import org.apache.rocketmq.client.exception.MQBrokerException;
+import org.apache.rocketmq.client.exception.MQClientException;
+import org.apache.rocketmq.client.producer.SendResult;
+import org.apache.rocketmq.common.message.Message;
+import org.apache.rocketmq.remoting.exception.RemotingException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.jws.Oneway;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -20,8 +32,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Key;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.concurrent.*;
 
 /**
  * @author LSX
@@ -29,6 +44,7 @@ import java.util.Date;
  * @date 2019/11/22 11:25
  */
 
+@Api(description = "闹着玩接口")
 @Controller
 public class UserInfoController {
     private static Logger log = Logger.getLogger(UserInfoController.class);
@@ -41,6 +57,7 @@ public class UserInfoController {
      * @param response
      * @return
      */
+    @ApiOperation(value = "小文件上传")
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public String upload(@RequestParam("file") MultipartFile files, HttpServletRequest request, HttpServletResponse response){
@@ -68,7 +85,8 @@ public class UserInfoController {
      * 用来测试的一些东西
      * @return
      */
-    @RequestMapping("/test")
+    @ApiOperation(value = "获取分片上传页面")
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
     private String test(){
         return "test";
     }
@@ -77,7 +95,8 @@ public class UserInfoController {
      * 用来测试websocket
      * @return
      */
-    @RequestMapping("/webs")
+    @ApiOperation(value = "用来测试websocket 001用户连接")
+    @RequestMapping(value = "/webs", method = RequestMethod.GET)
     private String webs(){
         return "webs";
     }
@@ -86,16 +105,43 @@ public class UserInfoController {
      * 用来测试websocket
      * @return
      */
-    @RequestMapping("/webs2")
+    @ApiOperation(value = "用来测试websocket 002用户连接")
+    @RequestMapping(value = "/webs2", method = RequestMethod.GET)
     private String webs2(){
         return "webs2";
     }
 
     /**
+     * 玩玩多线程
+     * @return
+     */
+    @ApiOperation(value = "玩玩多线程")
+    @ResponseBody
+    @RequestMapping(value = "/threadTrue", method = RequestMethod.GET)
+    private String threadTrue(){
+
+                int cpuNum = Runtime.getRuntime().availableProcessors();// 获取处理器数量
+                int threadNum = cpuNum * 2 + 1;// 根据cpu数量,计算出合理的线程并发数
+                int corePoolSize = cpuNum * 2;
+                int maximumPoolSize = corePoolSize + 1;
+                long keepAliveTime = 60l;
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime,
+                TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(300), Executors.defaultThreadFactory(),
+                new ThreadPoolExecutor.AbortPolicy());
+        threadPoolExecutor.execute(new ThreadReptile());
+
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        executorService.execute(new ThreadReptile());
+        return "随便玩玩";
+    }
+
+
+    /**
      * 用来测试websocket通过服务端给前端推送消息
      * @return
      */
-    @RequestMapping("/sendToUser")
+    @ApiOperation(value = "用来测试websocket通过服务端给指定前端推送消息")
+    @RequestMapping(value = "/sendToUser", method = RequestMethod.GET)
     @ResponseBody
     private String sendToUser(String message,String sid){
         try {
@@ -110,7 +156,8 @@ public class UserInfoController {
      * 用来测试websocket通过服务端给前端推送消息
      * @return
      */
-    @RequestMapping("/sendAll")
+    @ApiOperation(value = "用来测试websocket通过服务端给所有在线前端推送消息")
+    @RequestMapping(value = "/sendAll", method = RequestMethod.GET)
     @ResponseBody
     private String sendAll(String message){
         try {
@@ -119,6 +166,28 @@ public class UserInfoController {
             e.printStackTrace();
         }
         return "OK";
+    }
+
+
+    @Autowired
+    private PayProducer payProducer;
+
+    /**
+     * topic,消息依赖于topic
+     */
+    private static final String topic = "pay_test_topic";
+
+    @ResponseBody
+    @RequestMapping(value = "/rq",method = RequestMethod.GET)
+    public Object callback(String text) throws InterruptedException, RemotingException, MQClientException, MQBrokerException {
+        // 创建消息  主题   二级分类   消息内容好的字节数组
+        Message message = new Message(topic, "taga",("hello rocketMQ " + text).getBytes());
+
+        SendResult send = payProducer.getProducer().send(message);
+
+        System.out.println(send);
+
+        return new HashMap<>();
     }
 
 
@@ -147,8 +216,9 @@ public class UserInfoController {
      * @author: xiangdong.she
      * @date: Aug 20, 2017 12:37:56 PM
      */
+    @ApiOperation(value = "大文件上传 分片")
     @ResponseBody
-    @RequestMapping(value = "/BigFileUp")
+    @RequestMapping(value = "/BigFileUp", method = RequestMethod.POST)
     public String fileUpload(HttpServletRequest request, String guid, String md5value, String chunks, String chunk, String id, String name,
                              String type, String lastModifiedDate, int size, MultipartFile file) {
         String fileName;
@@ -195,4 +265,51 @@ public class UserInfoController {
         return result.toString();
     }
 
+
+
+  /*  @Autowired
+    private UserReposiory userReposiory;
+
+    @RequestMapping(value = "/addUser",method = RequestMethod.GET)
+    @ResponseBody
+    public UserEntity addUser(Integer id) {
+        UserEntity user1 = new UserEntity();
+        user1.setAge(19);
+        user1.setId(id);
+        user1.setSex(1);
+        user1.setUsername("你1大爷"+id);
+
+        userReposiory.save(user1);
+       *//* UserEntity user2 = new UserEntity();
+        user2.setAge(19);
+        user2.setId(3);
+        user2.setSex(1);
+        user2.setUsername("你2大爷"+id);
+        UserEntity user3 = new UserEntity();
+        user3.setAge(19);
+        user3.setId(2);
+        user3.setSex(1);
+        user3.setUsername("你3大爷"+id);
+
+        List<UserEntity> userEntityList = new ArrayList<>();
+        userEntityList.add(user1);
+        userEntityList.add(user3);
+        userEntityList.add(user2);
+        userReposiory.saveAll(userEntityList);*//*
+        return user1;
+    }
+
+    @RequestMapping(value = "/findUser", method = RequestMethod.GET)
+    @ResponseBody
+    public  Iterable<UserEntity> findUser(Integer id) {
+        return userReposiory.findAll();
+    }
+
+
+    @RequestMapping(value = "/findUserName", method = RequestMethod.GET)
+    @ResponseBody
+    public  Iterable<UserEntity> findUserName(String username) {
+        return userReposiory.findByUsername(username);
+    }
+*/
 }

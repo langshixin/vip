@@ -1,0 +1,733 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>牛皮小程序—全行业一站式服务</title>
+    <meta name="keywords" content="小程序" />
+    <meta name="description" content="小程序" />
+    <link rel="shortcut icon" href="./img/123.jpg" />
+    <meta name="format-detection" content="telephone=no"/>
+    <meta content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <link href=" ./css/common.css" type="text/css" rel="stylesheet">
+    <link href="./css/style.css" type="text/css" rel="stylesheet">
+    <script src="./js/jq_2.20.3.js"></script>
+    <script src="./js/TouchSlide.1.1.js"></script>
+    <script src="./js/wow.min.js"></script>
+    <script src="./js/jquery.lazyload.js"></script>
+    <script src="./js/comloding.js"></script>
+    <script src="./js/common.js"></script>
+    <!--[if lt IE 9]>
+    <script src="./js/html5.js"></script>
+    <![endif]-->
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script type="text/javascript">
+        wx.config({
+            debug: false,
+            appId: "wxb11d52084b35f58a",
+            timestamp: "1575954776",
+            nonceStr: "e5Sz1i2Z52N50TT8",
+            signature: "88a140ee87d58deecdd95339a4df3d627d5ac250",
+            jsApiList: [
+                'checkJsApi',
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage'
+            ]
+        });
+        wx.ready(function () {
+
+            var shareData = {
+                title: "牛批小程序",
+                desc: "小程序",
+                link: "",
+                imgUrl: "./img/123.jpg",
+            };
+
+            wx.onMenuShareAppMessage({
+                title: shareData.title,
+                desc: shareData.desc,
+                link: shareData.link,
+                imgUrl:shareData.imgUrl,
+                success: function (res) {
+                }
+            });
+            wx.onMenuShareTimeline({
+                title: shareData.title+"---"+shareData.desc,
+                link: shareData.link,
+                imgUrl:shareData.imgUrl,
+                success: function (res) {
+                }
+            });
+        });
+    </script>
+    <script> var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?e3edd8945554ebbbb0671bcfcea6ab12"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s); })(); </script></head>
+<style>
+    .input-sub {
+        border: 1px solid #ffffff;
+        width: 70%;
+        height: 35px;
+        float: right;
+        border-radius: 5px;
+        border-left: 1px solid #ffa21f;
+    }
+    .button-sub{
+        margin-top: 2%;
+        width: 30%;
+        height: 42px;
+        color: #ffffff;
+        background-color: #ffa21f;
+        position: relative;
+        bottom: auto;
+        border: 2px solid #ffa21f;
+        font-size: 16px;
+    }
+    .title-h2 {
+        text-align: left;
+
+    }
+    .box-shadow{
+        box-shadow: 0 0 10px #b8b8b8;
+        padding: 60px 0px 30px 0px;
+        border-radius: 10px;
+
+    }
+    .box-shadow p{
+        margin: 10px;
+        color: #333;
+    }
+    .delay-2s {
+        background: #10a7ff;
+    }
+    .delay-4s{
+        background: #10a7ff;
+    }
+    .input-div{
+        line-height: 37px;
+        color: #ffa21f;
+        font-size: 16px;
+        border: 1px solid #ffa21f;
+        border-radius: 5px;
+    }
+    .box-input{
+        border: 1px solid #ffa21f;
+        box-shadow: 0px 10px 5px #ffa21f;;
+        padding: 60px 0px 30px 0px;
+        border-radius: 10px;
+        width: 55%;
+        background: url(../addons/mogucms_guanwang/template/style/images/bg/bg_web.png);
+        background-size:contain
+    }
+    .box-icon li{
+        height: 150px;
+        box-shadow:none;
+    }
+    .box-icon li h3 img{
+        width: 48px;
+        height: 48px;
+        border-radius: 0;
+        margin-top: 0px;
+    }
+    .input-sub2 {
+        border: 1px solid #ffa21f;
+        width: 100%;
+        height: 38px;
+    }
+    .button-sub2{
+        width: 70%;
+        height: 36px;
+        color: #ffffff;
+        background-color: #ffa21f;
+        position: relative;
+        bottom: auto;
+        border: 2px solid #ffa21f;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+    .box-shadow2{
+        box-shadow: 0 0 10px #b8b8b8;
+        padding: 30px 0px 20px 0px;
+        border-radius: 10px;
+        width: 92%;
+        background: url(../addons/mogucms_guanwang/template/style/images/bg/bg_mobile.png);
+        background-size:contain
+    }
+</style>
+
+<body>
+<div class="header">
+    <div class="wrapper">
+        <a class="logo" href="/web/index.php?c=account&a=welcome"><span><img src="./img/123.jpg"></span><em><img src="./img/123.jpg"></em></a>
+        <div class="nav">
+            <a class="navico" href="javascript:;"><span><img src="./img/nav_ico2.png"></span><em><img src="./img/nav_ico.png"></em></a>
+            <ul>
+                <li class="on"><a href="javascript:;">首页</a></li>
+               <!-- <li><a href="/web/index.php?c=account&a=welcome&do=solve">解决方案</a></li>            	<li><a href="/web/index.php?c=account&a=welcome&do=xiaochengxu">小程序</a></li>            	<li><a href="/web/index.php?c=account&a=welcome&do=customize">定制开发</a></li>            	<li><a href="/web/index.php?c=account&a=welcome&do=daili">招商代理</a></li>            	<li><a href="/web/index.php?c=account&a=welcome&do=news">新闻资讯</a></li>            	<li><a href="/web/index.php?c=account&a=welcome&do=about">关于我们</a></li>            	<li><a href="/web/index.php?c=account&a=welcome&do=contact">联系我们</a></li>				<li><a href="/web/index.php?c=account&a=welcome&do=help">帮助</a></li>				<li><a href="https://yuechkj.com"  >小程序登录</a></li>				            </ul>-->
+            </ul>
+        </div>
+   <!--     <div class="loginreg"><a href="https://www.yuech.com.cn/web/index.php?c=user&a=login&">登录</a></div>-->
+    </div>
+</div>
+<div id="banner" class="banner">
+    <div class="hd">
+        <ul>		<li>1</li><li>2</li><li>3</li>
+        </ul>
+    </div>
+    <div class="bd">
+        <ul>
+            <li><a href="javascript:;"  ><span><img src="./img/nG8e86Tmdh8GE278mgLtLRR76zhDsa.png" /></span><em><img src="./img/W2ZzcqqrHX0xXQShH0qYyLHKAXABkQ.png" /></em></a></li>
+            <li><a href="javascript:;"  ><span><img src="./img/pU4eXXxZ42DeqeTX0dbb277DB2TUU2.png" /></span><em><img src="./img/y3Cd100MdomMcM5M7H71nh1hFMnmp1.png" /></em></a></li>
+            <li><a href="javascript:;"  ><span><img src="./img/U1cEBCBLBnc2I8nl9w9ClNxi9s9lSz.png" /></span><em><img src="./img/VSf155t15JmLS5JfcWLJCEPU5PzeaO.png" /></em></a></li>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    TouchSlide({
+        slideCell:"#banner",
+        titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+        mainCell:".bd ul",
+        effect:"left",
+        autoPlay:true,//自动播放
+        autoPage:true, //自动分页
+        switchLoad:"_src" //切换加载，真实图片路径为"_src"
+    });
+
+
+</script>
+
+<div class="content" style="padding: 0px" id="hidden_a">
+    <div class="wrapper">
+        <!--<div class="title"><h2><span></span>我们的服务</h2></div>-->
+        <div class="iservice_ui uibox4">
+            <ul>
+                <li class="wow fadeInUp animated delay-1s box-shadow">
+                    <h3><img src="./img/Yi1QRqUiP4U4Q9IZp4UUriP5I44q7i.png" /></h3>
+                    <h2>小程序开发</h2>
+                    <p>轻量级电商模式，一键打包社交渠道，我们为您提供各行各业微信、支付宝、百度小程序的解决方案</p>
+                </li>
+                <li class="wow fadeInUp animated delay-2s box-shadow">
+                    <h3><img src="./img/kw5R55zO7kpp5fZeZPApPqaKAKK75P.png" /></h3>
+                    <h2 style="color: #fff;">公众号开发</h2>
+                    <p style="color: #fff;">引流、互动、留存用户必备超能助手我们为您提供电商、会员、分销、游戏等各色公众号开发服务</p>
+                </li>
+                <li class="wow fadeInUp animated delay-3s box-shadow">
+                    <h3><img src="./img/HTJEoCa86C9Ed8bcd8cd8B88z8Ydba.png" /></h3>
+                    <h2>网站建设</h2>
+                    <p>公司门户，展示企业形象的绝佳方式我们诚心为您提供专业、前沿、丰富的网站建设服务</p>
+                </li>
+                <li class="wow fadeInUp animated delay-4s box-shadow">
+                    <h3><img src="./img/Uwsf7US07Da7MRZw10uj18HuS02usV.png" /></h3>
+                    <h2 style="color: #fff;">APP开发</h2>
+                    <p style="color: #fff;">更加专业个性、打造品牌电商模式无论是IOS还是安卓端我们提供从需求到设计到产品上线全线式服务</p>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="ilc_bg" id="show_b" >
+    <div class="wrapper" style="padding: 5px 0px; background:none;">
+        <!--<div class="title"><h2><span></span>开发流程</h2></div>-->
+        <div class="ilc_ui" style="margin-top: 5px;">
+            <img src="./img/bg1.png" width="95%" height="100%"/>
+        </div>
+    </div>
+</div>
+
+<div class="content" id="show_a" style="padding: 20px 0;">
+    <div class="wrapper box-shadow2">
+        <div class="iservice_ui" style="margin-top: 0" >
+            <ul>
+                <li class="wow fadeInUp animated " >
+                    <div class="input-div" style="border: none;" ><input class="input-sub2" placeholder="    您希望我们怎么称呼您？" type="text" id="name_c"></div>
+                </li>
+                <li class="wow fadeInUp animated " >
+                    <div class="input-div" style="border: none;" ><input class="input-sub2" placeholder="    请输入您的联系方式" type="text" id="mobile_c"></div>
+                </li>
+                <br>
+                <h2 id="tip_c" style="font-size: 14px;color: #ffa21f;text-align: center;"></h2>
+            </ul>
+        </div>
+
+        <div class="title" style=" margin: 0 2%;" ><button class="button-sub2" onclick="submit(3)">一键免费咨询</button></div>
+
+    </div>
+</div>
+
+<div class="ilc_bg" id="show_c" >
+    <div class="wrapper" style="padding: 0px 0px; background:none;">
+        <!--<div class="title"><h2><span></span>开发流程</h2></div>-->
+        <div class="ilc_ui" style="margin-top: 5px;">
+            <img src="./img/kflc.jpg" width="100%" height="100%"/>
+        </div>
+    </div>
+</div>
+
+<div class="ilc_bg" id="show_f" >
+    <div class="wrapper" style=" background:none;">
+        <!--<div class="title"><h2><span></span>开发流程</h2></div>-->
+        <div class="ilc_ui" style="margin-top: 5px;">
+            <img src="./img/fxyl_bg.png" width="90%" height="100%"/>
+        </div>
+    </div>
+</div>
+
+<div class="ilc_bg" id="show_d" >
+    <div class="wrapper" style="padding: 0px 0px; background:none;">
+        <!--<div class="title"><h2><span></span>开发流程</h2></div>-->
+        <div class="ilc_ui" style="margin-top: 5px;">
+            <img src="./img/wmys_bg.png" width="100%" height="100%"/>
+        </div>
+    </div>
+</div>
+
+<div class="content" id="hidden_e">
+    <div class="wrapper box-input">
+
+        <div class="iservice_ui" style="margin-top: 0" >
+            <ul>
+                <li class="wow fadeInUp animated " style="width: 30%;padding-left: 18%;">
+                    <div class="input-div">姓名   <input class="input-sub" placeholder="  您希望我们怎么称呼您？" type="text" id="name"></div>
+                </li>
+                <li class="wow fadeInUp animated " style="width: 35%;">
+                    <div class="input-div" >联系方式    <input class="input-sub" placeholder="  请输入您的联系方式，快速获取开发报价" type="text" id="mobile"></div>
+                </li>
+                <br>
+                <h2 id="tip" style="padding-left: 70px;font-size: 14px;color: #ffa21f;padding-top: 20px;text-align: center;"></h2>
+            </ul>
+        </div>
+
+        <div class="title" style=" margin: 0 0%;" ><button id="sub"  class="button-sub" onclick="submit(1)">专业免费咨询  等您来领</button></div>
+
+    </div>
+</div>
+
+
+
+<div class="ilc_bg"  id="hidden_g" style="background: url(./img/oBJF2QC5yQfYCDy65z45CFcyqCMtHf.png) no-repeat center top;">
+    <div class="wrapper" style="padding: 100px 0; background:none;">
+        <div class="title"><h2><span></span>开发流程</h2></div>
+        <div class="ilc_ui">
+            <ul>
+                <li class="wow fadeInUp animated delay-1s">
+                    <h3><img src="./img/lc_ico1.png" /></h3>
+                    <h2>需求沟通</h2>
+                    <p>客户提出需求，进行功能分析，确定功能需求</p>
+                    <em></em>
+                </li>
+                <li class="wow fadeInUp animated delay-2s">
+                    <h3><img src="./img/lc_ico2.png" /></h3>
+                    <h2>交互设计</h2>
+                    <p>根据已确定的需求功能确认原型，UI设计稿</p>
+                    <em></em>
+                </li>
+                <li class="wow fadeInUp animated delay-3s">
+                    <h3><img src="./img/lc_ico3.png" /></h3>
+                    <h2>技术开发</h2>
+                    <p>根据功能需求，完成前后端的开发</p>
+                    <em></em>
+                </li>
+                <li class="wow fadeInUp animated delay-4s">
+                    <h3><img src="./img/lc_ico4.png" /></h3>
+                    <h2>发布上架</h2>
+                    <p>与客户确定验收无误后系统部署，发布上架</p>
+                    <em></em>
+                </li>
+                <li class="wow fadeInUp animated delay-5s">
+                    <h3><img src="./img/lc_ico5.png" /></h3>
+                    <h2>后续服务</h2>
+                    <p>后续持续跟进及技术支持服务</p>
+                    <em></em>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="ilc_bg"  id="hidden_f" >
+    <div class="wrapper" style="background:none;" >
+        <div class="title"><h2 style="color: #0C0C0C;border-bottom: 1px #53b3f4">分销引流 - 营销裂变</h2></div>
+        <div class="ilc_ui">
+            <ul class="box-icon">
+                <li class="wow fadeInUp animated delay-1s">
+                    <h3><img src="./img/icon1.png" /></h3>
+                    <h2>全民营销</h2>
+                </li>
+                <li class="wow fadeInUp animated delay-2s">
+                    <h3><img src="./img/icon2.png" /></h3>
+                    <h2>全球分红</h2>
+                </li>
+                <li class="wow fadeInUp animated delay-3s">
+                    <h3><img src="./img/icon3.png" /></h3>
+                    <h2>区域分红</h2>
+                </li>
+                <li class="wow fadeInUp animated delay-4s">
+                    <h3><img src="./img/icon4.png" /></h3>
+                    <h2>团队分红</h2>
+                </li>
+                <li class="wow fadeInUp animated delay-5s">
+                    <h3><img src="./img/icon5.png" /></h3>
+                    <h2>微商中心</h2>
+                </li>
+            </ul>
+            <ul class="box-icon">
+                <li class="wow fadeInUp animated delay-1s">
+                    <h3><img src="./img/icon6.png" /></h3>
+                    <h2>微店中心</h2>
+                </li>
+                <li class="wow fadeInUp animated delay-2s">
+                    <h3><img src="./img/icon7.png" /></h3>
+                    <h2>O2O门店</h2>
+                </li>
+                <li class="wow fadeInUp animated delay-3s">
+                    <h3><img src="./img/icon8.png" /></h3>
+                    <h2>注册营销</h2>
+                </li>
+                <li class="wow fadeInUp animated delay-4s">
+                    <h3><img src="./img/icon9.png" /></h3>
+                    <h2>优惠券</h2>
+                </li>
+                <li class="wow fadeInUp animated delay-5s">
+                    <h3><img src="./img/icon10.png" /></h3>
+                    <h2>满减送</h2>
+                </li>
+            </ul>
+            <ul class="box-icon">
+                <li class="wow fadeInUp animated delay-1s">
+                    <h3><img src="./img/icon11.png" /></h3>
+                    <h2>限时折扣</h2>
+                </li>
+                <li class="wow fadeInUp animated delay-2s">
+                    <h3><img src="./img/icon12.png" /></h3>
+                    <h2>拼团</h2>
+                </li>
+                <li class="wow fadeInUp animated delay-3s">
+                    <h3><img src="./img/icon13.png" /></h3>
+                    <h2>秒杀</h2>
+                </li>
+                <li class="wow fadeInUp animated delay-4s">
+                    <h3><img src="./img/icon14.png" /></h3>
+                    <h2>预售</h2>
+                </li>
+                <li class="wow fadeInUp animated delay-5s">
+                    <h3><img src="./img/icon15.png" /></h3>
+                    <h2>砍价</h2>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="ilc_bg" id="hidden_b" style="background: url(../addons/mogucms_guanwang/template/style/images/lc_ys.png) no-repeat center top;height: 430px;">
+    <div class="wrapper" style="padding: 100px 0; background:none;">
+        <!--<div class="title"><h2><span></span>开发流程</h2></div>-->
+        <div class="ilc_ui">
+
+        </div>
+    </div>
+</div>
+
+
+<div class="content" >
+    <div class="wrapper">
+        <div class="title"><h2><span></span>案例</h2></div>
+        <div class="icase_menu" id="hidden_c" ><a class="active" href="javascript:;">全部</a><a href="javascript:;" >电商商城</a><a href="javascript:;" >返利精选</a><a href="javascript:;" >餐饮外卖</a><a href="javascript:;" >跑腿外送</a><a href="javascript:;" >社区团购</a><a href="javascript:;" >环保农业</a><a href="javascript:;" >教育培训</a><a href="javascript:;" >商超扫码</a><a href="javascript:;" >家政服务</a><a href="javascript:;" >酒店客栈</a><a href="javascript:;" >鲜花配送</a><a href="javascript:;" >同城论坛</a><a href="javascript:;" >招聘兼职</a><a href="javascript:;" >房产中介</a><a href="javascript:;" >视频直播</a><a href="javascript:;" >名片推广</a><a href="javascript:;" >会员营销</a><a href="javascript:;" >美容美发</a><a href="javascript:;" >支付宝小程序</a><a href="javascript:;" >百度小程序</a><a href="javascript:;" >旅游景区</a><a href="javascript:;" >瑜伽健身</a><a href="javascript:;" >红包卡券</a><a href="javascript:;" >公众号H5</a><a href="javascript:;" >应用工具</a><a href="javascript:;" >网站开发</a><a href="javascript:;" >定制开发</a></div>
+        <div class="icase_ui">
+            <ul>
+                <li class="wow fadeInUp">
+                    <h3><img src="./img/wOg9pqIP0UBECx06z2BW7O0exGPbU9.jpg" class="anlianli"/></h3>
+                    <p>生鲜团购</p>
+                </li>
+                <li class="wow fadeInUp">
+                    <h3><img src="./img/km5u5In5uLPNj9nIyLH385QnLYGMZQ.jpg" class="anlianli"/></h3>
+                    <p>宠物商城</p>
+                </li>
+                <li class="wow fadeInUp">
+                    <h3><img src="./img/A7b589ZA5Pe4jB39XA8k8ek3L3kQ3K.jpg" class="anlianli"/></span></h3>
+                    <p>智慧旅游</p>
+                </li>
+                <li class="wow fadeInUp">
+                    <h3><img src="./img/dY7z718yPBK1yyXB5t7t1gYY13c113.jpg" class="anlianli"/></h3>
+                    <p>餐饮平台</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="wrapper">
+        <div class="title"><h2><span></span>解决方案</h2></div>
+        <div class="icase_menu" id="hidden_d"><a class="active" href="javascript:;">全部</a><a href="javascript:void(0);" >电商商城</a><a href="javascript:void(0);" >返利精选</a><a href="javascript:void(0);" >餐饮外卖</a><a href="javascript:void(0);" >跑腿外送</a><a href="javascript:void(0);" >社区团购</a><a href="javascript:void(0);" >环保农业</a><a href="javascript:void(0);" >教育培训</a><a href="javascript:void(0);" >商超扫码</a><a href="javascript:void(0);" >家政服务</a><a href="javascript:void(0);" >酒店客栈</a><a href="javascript:void(0);" >鲜花配送</a><a href="javascript:void(0);" >同城论坛</a><a href="javascript:void(0);" >招聘兼职</a><a href="javascript:void(0);" >房产中介</a><a href="javascript:void(0);" >视频直播</a><a href="javascript:void(0);" >名片推广</a><a href="javascript:void(0);" >会员营销</a><a href="javascript:void(0);" >美容美发</a><a href="javascript:void(0);" >支付宝小程序</a><a href="javascript:void(0);" >百度小程序</a><a href="javascript:void(0);" >旅游景区</a><a href="javascript:void(0);" >瑜伽健身</a><a href="javascript:void(0);" >红包卡券</a><a href="javascript:void(0);" >公众号H5</a><a href="javascript:void(0);" >应用工具</a><a href="javascript:void(0);" >网站开发</a><a href="javascript:void(0);" >定制开发</a></div>
+        <div class="jjfa_list">
+            <ul>
+                <li class="wow fadeInUp">
+                    <a href="javascript:void(0);"><h1><img src="./img/fl89PV8Jd00DTXKlj999k3kxeV808L.png" /></h1></a>
+                    <h2><a href="javascript:void(0);">社区团购解决方案</a></h2>
+                    <p>社区团购服务类型</p>
+                </li>
+                <li class="wow fadeInUp">
+                    <a href="javascript:void(0);"><h1><img src="./img/Ks979479Q7anO4947A9O44449NYA4k.png" /></h1></a>
+                    <h2><a href="javascript:void(0);">物业管理小程序/APP解决方案</a></h2>
+                    <p>应用工具服务类型</p>
+                </li>
+                <li class="wow fadeInUp">
+                    <a href="javascript:void(0);"><h1><img src="./img/bSHHrlh8gR8y8ERZpH9Ccp7Y8ZJ792.png" /></h1></a>
+                    <h2><a href="javascript:void(0);">APP定制化解决方案</a></h2>
+                    <p>定制开发服务类型</p>
+                </li>
+                <li class="wow fadeInUp">
+                    <a href="javascript:void(0);"><h1><img src="./img/Ex7dK4B7Ks7sO2x2JJ7smEVEm7j2MX.png" /></h1></a>
+                    <h2><a href="javascript:void(0);">直播系统解决方案</a></h2>
+                    <p>视频直播服务类型</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="content" id="show_e" style="padding: 20px 0;">
+    <div class="wrapper box-shadow2">
+        <div class="iservice_ui" style="margin-top: 0" >
+            <ul>
+                <li class="wow fadeInUp animated " >
+                    <div class="input-div" style="border: none;" ><input class="input-sub2" placeholder="    您希望我们怎么称呼您？" type="text" id="name_d"></div>
+                </li>
+                <li class="wow fadeInUp animated " >
+                    <div class="input-div" style="border: none;" ><input class="input-sub2" placeholder="    请输入您的联系方式" type="text" id="mobile_d"></div>
+                </li>
+                <br>
+                <h2 id="tip_d" style="font-size: 14px;color: #ffa21f;text-align: center;"></h2>
+            </ul>
+        </div>
+
+        <div class="title" style=" margin: 0 2%;" ><button class="button-sub2" onclick="submit(3)">一键免费咨询</button></div>
+
+    </div>
+</div>
+
+<div class="content" id="hidden_h" style="padding: 20px 0;">
+    <div class="wrapper box-input" >
+
+        <div class="iservice_ui" style="margin-top: 0" >
+            <ul>
+                <li class="wow fadeInUp animated " style="width: 30%;padding-left: 18%;">
+                    <div class="input-div">姓名   <input class="input-sub" placeholder="  您希望我们怎么称呼您？" type="text" id="name_b"></div>
+                </li>
+                <li class="wow fadeInUp animated " style="width: 35%;">
+                    <div class="input-div" >联系方式   <input class="input-sub" placeholder="  请输入您的联系方式，快速获取开发报价" type="text" id="mobile_b"></div>
+                </li>
+                <br>
+                <h2 id="tip_b" style="padding-left: 70px;font-size: 14px;color: #ffa21f;padding-top: 20px;text-align: center;"></h2>
+            </ul>
+        </div>
+
+        <div class="title" style=" margin: 0 2%;" ><button  class="button-sub" onclick="submit(2)">专业免费资讯   等您来领</button></div>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+
+        var flag = IsPC();
+        if(flag==false){
+            $("#hidden_a").attr("style","display:none;");
+            $("#hidden_b").attr("style","display:none;");
+            $("#hidden_c").attr("style","display:none;");
+            $("#hidden_d").attr("style","display:none;");
+            $("#hidden_e").attr("style","display:none;");
+            $("#hidden_f").attr("style","display:none;");
+            $("#hidden_g").attr("style","display:none;");
+            $("#hidden_h").attr("style","display:none;");
+        }else{
+            $("#show_a").attr("style","display:none;");
+            $("#show_b").attr("style","display:none;");
+            $("#show_c").attr("style","display:none;");
+            $("#show_d").attr("style","display:none;");
+            $("#show_e").attr("style","display:none;");
+            $("#show_f").attr("style","display:none;");
+        }
+
+    });
+    function submit(type){
+        var name = $('#name').val();
+        var mobile = $('#mobile').val();
+
+        switch (type) {
+            case 2:
+                name = $('#name_b').val();
+                mobile = $('#mobile_b').val();
+                break;
+            case 3:
+                name = $('#name_c').val();
+                mobile = $('#mobile_c').val();
+                break;
+            case 4:
+                name = $('#name_d').val();
+                mobile = $('#mobile_d').val();
+                break;
+            default:
+                break;
+        }
+        if(mobile ==''){
+            var  test = "手机号码不能为空";
+            $('#tip').html(test);
+            $('#tip_b').html(test);
+            $('#tip_c').html(test);
+            $('#tip_d').html(test);
+            return ;
+        }
+        var phone=mobile.replace(/\s/g, "");
+        let regs = /^((13[0-9])|(17[0-1,6-8])|(15[^4,\\D])|(18[0-9]))\d{8}$/;
+        if(!regs.test(phone)){
+            var  test = "输入的手机号码格式不对";
+            $('#tip').html(test);
+            $('#tip_b').html(test);
+            $('#tip_c').html(test);
+            $('#tip_d').html(test);
+            return ;
+        }
+        $.ajax({
+            async:true,
+            type: 'post',
+            url:"/web/index.php?c=account&a=welcome&do=getsubmit",
+            data:{ name : name,phone:phone},
+            success:function(res){
+                console.log(res);
+                res = JSON.parse(res);
+                alert(res.msg);
+                if(res.code==0){
+                    location.reload();
+                }
+            },
+            error:function(err){
+                alert(err.msg);
+            }
+        });
+
+    }
+    function IsPC() {
+        var userAgentInfo = navigator.userAgent;
+        var Agents = ["Android", "iPhone",
+            "SymbianOS", "Windows Phone",
+            "iPad", "iPod"];
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+
+</script>
+<div class="content inew_bg">
+    <div class="wrapper">
+        <div class="title"><h2><span></span>新闻资讯</h2></div>
+        <div class="inew_ui">
+            <ul>
+                <li class="wow fadeInUp animated delay-1s">
+                    <div class="dt"><span>12-10</span><em>2019</em></div>
+                    <div class="dd">
+                        <a href="javascript:;">
+                            <span>【攻略】小程序电商运营——提升用户留存，增加复购</span>
+                            <em>互联网时代，用户就是资产，商家想要提升营收能力就要不断积累用户，通过各种手段拉新，还要想尽一切办法留住用户，让用户持续消费。
+                                反之用户流失会造成商家的资产缩水，所以在社交电商模式下小程序商城的运营也是如此，不但要做推广增加用户量还要做好用户留存。</em>
+                        </a>
+                    </div>
+                </li>
+                <li class="wow fadeInUp animated delay-1s">
+                    <div class="dt"><span>12-10</span><em>2019</em></div>
+                    <div class="dd">
+                        <a href="javascript:;">
+                            <span>「品牌小程序商城」运营解决方案正式上线，破解品牌加盟模式联营难题</span>
+                            <em>在微信支付成长计划服务商大会，微信团队正式上线「品牌小程序商城」运营解决方案，多样化的运营工具与策略组合，为品牌商提供更优产出比、自有化流量的智慧经营新思路，并为小程序的引流、转化、复购提供助力，打破时空限制，实现品牌的全渠道、全场景交易。</em>
+                        </a>
+                    </div>
+                </li>
+                <li class="wow fadeInUp animated delay-1s">
+                    <div class="dt"><span>12-09</span><em>2019</em></div>
+                    <div class="dd">
+                        <a href="javascript:;">
+                            <span>抖音小程序的未来及优势，2020年5g时代抖音小程序值得期待。</span>
+                            <em>在我们的社群里面，沟通小程序的时候存在两种观点。第一种是坚定派，这一派觉得小程序一定是未来。第二种是犹豫派，他们犹豫小程序是不是和其他一样一阵风就过了，特别是抖音小程序怎么做做停停，推出来的时候不是那么坚决，也没看到铺天盖地的小程序。</em>
+                        </a>
+                    </div>
+                </li>
+                <li class="wow fadeInUp animated delay-1s">
+                    <div class="dt"><span>12-09</span><em>2019</em></div>
+                    <div class="dd">
+                        <a href="javascript:;">
+                            <span>百度智能小程序之后 支付宝也准备“多平台运行”了！</span>
+                            <em>继百度在去年宣布智能小程序开源之后，支付宝小程序也开始主打“一次开发，多平台运行”。阿里巴巴CTO张建锋日前接受媒体专访时表示，阿里系将持续加码小程序，实现一次开发，多平台运行。但是支付宝小程序的开放程度和进度显然都慢了不止一点。
+                                就在支付宝宣布该策略的同时，百度已经把“一次开发，多平台可运行”落地到多个产品端。记者发现，包括百度贴吧、百度地图、百度网盘等在内的多个月活过亿的百度系App以及爱奇艺、wifi万能钥匙等外部App已经全面接入智能小程序。</em>
+                        </a>
+                    </div>
+                </li>
+                <li class="wow fadeInUp animated delay-1s">
+                    <div class="dt"><span>12-07</span><em>2019</em></div>
+                    <div class="dd">
+                        <a href="javascript:;">
+                            <span>小程序从诞生日起到今天，怎么做到短短两年时间做到日活就达到了3.5亿</span>
+                            <em>iPhone诞生的十周年，微信的张小龙为了向乔布斯致敬，选在了2017年1月9号推出了“微信小程序”，从17年到19年，两年时间过去了，这对于一款互联网产品而言，已到了“而立”之年，从人人唱衰到人人离不开，这中间到底经历了什么？</em>
+                        </a>
+                    </div>
+                </li>
+                <li class="wow fadeInUp animated delay-1s">
+                    <div class="dt"><span>12-07</span><em>2019</em></div>
+                    <div class="dd">
+                        <a href="javascript:;">
+                            <span>小程序与APP的11个不同，你都了解了多少呢？</span>
+                            <em>大家在使用小程序和APP的时候，可能觉得并没有什么不一样，反正都是手机端，实际上有很多本质上的区别，主要有多达11个方面有很不一样的不同哦，你又了解了多少</em>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <!--<div class="footer_link">
+        <div class="wrapper" style="text-align:left">
+        <strong>友情链接：</strong><a href="#"  >xxxxxxxxx</a><a href="#"  >xxxxxxxxx</a><a href="#"  >xxxxxxxxx</a><a href="#"  >xxxxxxxxx</a><a href="#"  >xxxxxxxxx</a><a href="#"  >xxxxxxxxx</a><a href="#"  >xxxxxxxxx</a><a href="#"  >xxxxxxxxx</a>
+        </div>
+    </div>-->
+    <div class="wrapper">
+        <div class="fl">
+            <div class="foot_menu"><a href="javascript:;">定制开发</a><span>|</span><a href="javascript:;">新闻资讯</a><span>|</span><a href="javascript:;">小程序</a><span>|</span><a href="javascript:;">解决方案</a><span>|</span><a href="javascript:;">关于我们</a></div>
+            <div class="foot_contact">
+                <span><img src="./img/foot_icotel.png">Tel： 渠道部方总监：13237517503</span>
+                <span><img src="./img/foot_icoemail.png">E-mai：admin@xxx.com.cn</span>
+                <span><img src="./img/foot_icomap.png">Add：召唤师峡谷大厦4楼</span>
+            </div>
+            <div class="foot_copright">德玛西亚科技有限公司版权所有   Copyright ©2016 All Rights Reserved.  &nbsp;<a href="javascript:;"  >粤ICP备xxxxx号</a></div>
+            <div class="foot_copright">&nbsp;<img src="../addons/mogucms_guanwang/template/style/images/ga.png" width="14px" height="14px" style="margin-top:-3px;"> <a href="http://www.beian.miit.gov.cn"  > 粤ICP备xxxx号</a></div>        </div>
+        <div class="foot_ewm">
+            <h3><img src="./img/123.jpg"></h3>
+            <p>扫一扫 关注我</p>
+        </div>
+    </div>
+</div>
+<!--右侧浮动-->
+<div class="fix_link">
+    <ul>
+        <li class="fix_tel">
+            <div class="fix_info"><a href="tel:13237517503">13237517503</a><span></span></div>
+        </li>
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=327759264&site=qq&menu=yes"  ><li class="fix_qq"></li></a>
+        <li class="fix_wx">
+            <div class="fix_info"><img src="./img/123.jpg"><span></span></div>
+        </li>
+        <li class="fix_top top"></li>
+    </ul>
+</div>
+</body>
+</html>

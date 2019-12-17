@@ -1,0 +1,519 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="pragma" content="no-cache">
+    <title>即速应用-微信小程序-微信小程序开发制作-微信小程序工具平台</title>
+    <meta name="description" content="【即速应用】是国内领先的微信小程序制作开发工具,免代码生成微信小程序平台,拥有海量零售商城,团购分销,电商小程序模板案例,为小程序企业公司,H5网站提供小程序定制推广一站式服务。"/>
+    <meta name="keywords" content="小程序,微信小程序,小程序开发,微信小程序开发,小程序制作,微信小程序制作,小程序工具,微信小程序工具,小程序定制,微信小程序定制,小程序平台,微信小程序平台"/>
+    <meta name="format-detection" content="telephone=no,email=no">
+    <meta name="applicable-device" content="mobile">
+    <link rel="canonical" href="http://www.jisuapp.cn" >
+    <link rel="shortcut icon" href="http://cdn.jisuapp.cn/zhichi_frontend/static/common/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/common/css/common.css?version=11073">
+    <link rel="stylesheet" href="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/common/css/slick.css?version=11073">
+    <link rel="stylesheet" href="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/css/index.css?version=11073">
+    <script src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/common/js/jquery-2.1.4.min.js?version=11073"></script>
+    <script src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/common/js/slick.min.js?version=11073"></script>
+    <script src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/common/js/jquery.touch.js?version=11073"></script>
+    <script src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/common/js/jquery.swipe.js?version=11073"></script>
+    <script type="text/javascript" src="http://cdn.jisuapp.cn/zhichi_frontend/static/pc/index/js/get_carousel_rate.js"></script>
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+    <script src="//msite.baidu.com/sdk/c.js?appid=1583488007721839"></script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://ziyuan.baidu.com/contexts/cambrian.jsonld",
+            "@id": "http://m.jisuapp.cn/",
+            "appid": "1583488007721839",
+            "upDate": "2019-12-09 23:26:17"
+        }
+    </script>
+    <!--  M版 百度推广统计代码  -->
+ <!--   <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?927aafd129a27a7a8cbedc29237d68d2";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>-->
+    <!--  小程序商城百度统计代码  -->
+
+
+    <!-- 资讯统计代码  -->
+    <!-- 咫尺网络统计代码  -->
+    <!-- 咫尺活动统计代码 -->
+    <!-- 学院统计代码  -->
+    <!-- 问答统计代码  -->
+    <!-- 学院M版统计代码 -->
+    <!-- 360统计代码 -->
+    <!-- 招商统计代码 -->
+
+</head>
+<body>
+<!-- 引入nav -->
+<link rel="stylesheet" href="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/nav/css/nav.css?version=11073">
+<script src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/common/js/jquery.touch.js?version=11073"></script>
+<div class="nav-wrap" data-complete="">
+    <span class="nav-logo"><a href="/"><svg class=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zhichi_frontend/static/webapp_mobile/common/svg/index.svg#icon-webapp" /></svg></a></span>
+    <span class="nav-list-icon"><svg class=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zhichi_frontend/static/webapp_mobile/common/svg/index.svg#icon-more" /></svg></span>
+</div>
+<div class="nav-list-wrap" data-url=m.jisuapp.cn>
+    <div class="nav-mask"></div>
+    <div class="nav-list">
+        <!--<div class="login-register-area">
+            <span class="flex-item" style="text-align: left;"><a href="/index.php?r=login/Ulogin">登录</a></span>
+            <span class="center-border"></span>
+            <span class="flex-item" style="text-align: right;"><a href="/index.php?r=login/Ulogin&reg=1">注册</a></span>
+        </div>-->
+       <!-- <ul class="navigators">
+            <li class="navigator-item"><a href="/">首页</a></li>
+            <li class="navigator-item"><a href="/make/">案例</a></li>
+            <li class="navigator-item switch10"><a href="/news/">资讯</a></li>
+            &lt;!&ndash;即速云导航因使用375px为基准开发页面未引用该公共导航&ndash;&gt;
+            <li class="navigator-item switch10"><a href="/2018/chajian.html">即速云</a></li>
+            <li class="navigator-item"><a href="/adv/">即速广告</a></li>
+            <li class="navigator-item"><a href="/intro/">功能介绍</a></li>
+            <li class="navigator-item"><a href="/aboutus/">关于我们</a></li>
+            <li class="navigator-item gray switch11"><a href="/agents/">代理加盟</a></li>
+            <li class="navigator-item gray"><a href="/vip/">小程序套餐</a></li>
+            <li class="navigator-item gray switch12"><a href="/exclusive/">小程序定制</a></li>
+            <li class="navigator-item gray switch13"><a href="/match/">设计大赛</a></a></li>
+            &lt;!&ndash;<li class="navigator-item gray"><a href="/NewCourse/">培训课程</a></a></li>&ndash;&gt;
+            <li class="navigator-item gray switch14"><a href="http://m.school.jisuapp.cn/courses/29.html" rel="nofollow">培训课程</a></a></li>
+        </ul>-->
+    </div>
+</div>
+<script src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/nav/js/nav.js?version=11073"></script>
+
+<div class="page-wrap">
+    <div class="scroll-area">
+        <!-- <div class="banner-section banner-swiper-container">
+             <div>
+                 <a data-index="slide0" target="_blank"   data-img-id="248" onclick="rate(this)"><img src="https://img.zhichiwangluo.com/zcimgdir/album/file_5c67c5fb65b2f.png"></a>
+             </div>
+
+
+         </div>-->
+        <link rel="stylesheet" href="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/footer/css/footer.css?version=11073">
+        <div class="footer-section" >
+            <div class="footer-text">
+                <p><span class="footer-text1">联系我们</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #cccccc;font-size: .22rem">周一至周五 &nbsp; 9:30-18:30</span></p>
+                <div class="footer-phone">
+                    <!--
+                                        <p><span class="footer-text2">客服电话 ：</span><a href="tel:400-078-9990"><span style="color: #3091f2;">&nbsp;&nbsp; 400-078-9990</span></a></p>
+                    -->
+                    <p><span class="footer-text2" style="margin-top: .14rem;display: inline-block;">业务咨询 ：</span><a href="tel:13237517503"><span style="color: #3091f2;">&nbsp;&nbsp; 13237517503</span></a></p>
+                </div>
+        <!--<div class="navigators-gallery">
+            <div class="gallery-item">
+                <a href="/make/">
+                    <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/immediate_production.png" alt="">
+                    <span>立即制作</span>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="/make/">
+                    <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/excellence_case_logo.jpg" alt="">
+                    <span>经典案例</span>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="/intro/">
+                    <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/func_intro_logo.jpg" alt="">
+                    <span>功能介绍</span>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="/news/">
+                    <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/hotspot_information_logo.jpg" alt="">
+                    <span>热点资讯</span>
+                </a>
+            </div>
+            <div class="gallery-item">
+                <a href="/aboutus/">
+                    <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/about_us_logo.jpg" alt="">
+                    <span>关于我们</span>
+                </a>
+            </div>
+        </div>-->
+        <div class="webapp-intro">
+            <div class="title-wrap">
+                <p>小程序是什么?</p>
+                <p>无需下载即可使用的应用</p>
+            </div>
+            <div class="img-wrap">
+                <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/webapp_intro.png" alt="">
+            </div>
+        </div>
+        <!--<div class="application-scene-wrap">
+            <div class="title-wrap">
+                <p class="application-title">小程序应用场景</p>
+            </div>
+            <div class="application-scene">
+                <div class="application-item">
+                    <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/shop_system.jpg" alt="">
+                    <div class="item-content">
+                        <p>电商买卖</p>
+                    </div>
+                </div>
+                <div class="application-item">
+                    <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/order_service.jpg" alt="">
+                    <div class="item-content">
+                        <p>预约服务</p>
+                    </div>
+                </div>
+                <div class="application-item">
+                    <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/news_info.jpg" alt="">
+                    <div class="item-content">
+                        <p>新闻咨讯</p>
+                    </div>
+                </div>
+                <div class="application-item">
+                    <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/community_discuss.jpg" alt="">
+                    <div class="item-content">
+                        <p>社区讨论</p>
+                    </div>
+                </div>
+                <div class="application-item">
+                    <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/seller_group.jpg" alt="">
+                    <div class="item-content">
+                        <p>商家联盟</p>
+                    </div>
+                </div>
+                <div class="application-item">
+                    <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/sell_system.jpg" alt="">
+                    <div class="item-content">
+                        <p>到店系统</p>
+                    </div>
+                </div>
+                <div class="application-item application-item-try">
+                    <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/free_try.png" alt="">
+                    <div class="item-content">
+                        <a class="try-btn" href="/index.php?r=login/Ulogin">免费体验</a>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <div class="webapp-make">
+            <div class="title-wrap">
+                <p>零代码小程序制作工具</p>
+                <p>省时&ensp;省力&ensp;省心&ensp;省钱</p>
+            </div>
+            <div class="make-gallery">
+                <div class="gallery-item">
+                    <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/one_touch.jpg" alt="">
+                    <p class="item-title">一键生成</p>
+                    <p class="item-description">3分钟快速生成小程序</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/excellence_module.jpg" alt="">
+                    <p class="item-title">精美模板</p>
+                    <p class="item-description">30+行业100+模板一键套</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/visual_drag.jpg" alt="">
+                    <p class="item-title">可视化拖拽</p>
+                    <p class="item-description">功能组件直接拖拽</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/full_service.jpg" alt="">
+                    <p class="item-title">全套服务</p>
+                    <p class="item-description">免费的服务器、培训服务</p>
+                </div>
+            </div>
+        </div>
+        <!--<div class="excellence-cases">
+            <div id="slide-section" class="cases-swiper-container">
+                <div class="case_arrow">
+                    <img id="arrow_left" class="arrow-btn" ty="left" src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/arrow_left.svg" alt="">
+                    <img id="arrow_right" class="arrow-btn" ty="right" src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/arrow_right.svg" alt=""></div>
+                <div class="banner-wrap">
+                    &lt;!&ndash; <div class="banner-item prev-prev-item" slide-idx='2'><a href="javascript:;"><img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/case3.jpg" alt=""></a></div> &ndash;&gt;
+                    <div class="banner-item prev-item" slide-idx='0'><a href="javascript:;"><img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/case1.jpg" alt=""></a></div>
+                    <div class="banner-item current-item" slide-idx='1'><a href="javascript:;"><img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/case2.jpg" alt=""></a></div>
+                    <div class="banner-item next-item" slide-idx='2'><a href="javascript:;"><img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/case3.jpg" alt=""></a></div>
+                    &lt;!&ndash; <div class="banner-item next-next-item" slide-idx='0'><a href="javascript:;"><img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/case1.jpg" alt=""></a></div> &ndash;&gt;
+                </div>
+            </div>-->
+           <!-- <div class="case-intros">
+                <div class="case-intro">
+                    <p class="case-name">新日电动车</p>
+                    <p class="case-description">新日电动车，即江苏新日电动车股份有限公司（简称：新日股份） ，是主要从事电动车研发、生产与销售的大型民营股份制有限公司。合作于2017年7月。</p>
+                </div>
+                <div class="case-intro active">
+                    <p class="case-name">四季酒店西餐厅</p>
+                    <p class="case-description">四季酒店————国际性奢华酒店管理集团，总部设于加拿大多伦多，被Travel + Leisure杂志及Zagat指南评为世界最佳酒店集团之一。合作于2017年4月。</p>
+                </div>
+                <div class="case-intro">
+                    <p class="case-name">招商银行</p>
+                    <p class="case-description">招商银行（China Merchants Bank）———— 中国第一家完全由企业法人持股的股份制商业银行，简称招行。是中国内地规模第六大的银行。合作于2017年5月。</p>
+                </div>
+                <div class="more-cases-wrap"><a href="/make/" class="more-cases">查看更多</a></div>
+            </div>-->
+        </div>
+        <div class="webapp-ad">
+            <p>海量媒体资源</p>
+            <p>一站式广告投放</p>
+            <ul class="ad-list">
+                <li>
+                    <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/qq_news.png" alt="">
+                    <p>腾讯新闻</p>
+                </li>
+                <li>
+                    <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/qq_video.png" alt="">
+                    <p>腾讯视频</p>
+                </li>
+                <li>
+                    <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/WeChat.png" alt="">
+                    <p>公众号</p>
+                </li>
+                <li>
+                    <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/circle_of_friends.png" alt="">
+                    <p>朋友圈</p>
+                </li>
+                <li>
+                    <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/qq.png" alt="">
+                    <p>QQ</p>
+                </li>
+                <li>
+                    <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/qq_space.png" alt="">
+                    <p>QQ空间</p>
+                </li>
+            </ul>
+           <!-- <div class="ad-book"><a href="http://m.jisuapp.cn/adv/">立即预约</a></div>
+            <div class="ad-tip">预约您的专属广告营销顾问</div>-->
+        </div>
+            <div class="join-us switch19">
+                <p class="title">小程序千亿市场等你来</p>
+                <p class="btn-group">
+                    <a href="/agents/">代理加盟</a>
+                </p>
+            </div>
+        <!--   <div class="weapp-news">
+             <p class="title" style="font-size: 0.40rem;">小程序资讯</p>
+             <ul class="news-list">
+                 <li class="news-item"><a href="/news/1326.html">
+                     <div class="item-text">
+                         <p class="item-title">微信小程序开发软件,零基础入门微信小程序开发</p>
+                         <p class="item-text-bottom">
+                             <span class="author">GitChat</span>
+                             <i class="center-line"></i>
+                             <time>2019-12-09 23:26:17</time>
+                         </p>
+                     </div>
+                     <div class="item-img">
+                         <img src="https://img.zhichiwangluo.com/zcimgdir/album/file_5de75b79e400d.png" alt="">
+                     </div></a>
+                 </li>
+                 <li class="news-item"><a href="/news/1327.html">
+                     <div class="item-text">
+                         <p class="item-title">微信小程序开发软件,微信小程序笔记一</p>
+                         <p class="item-text-bottom">
+                             <span class="author">lyanjun</span>
+                             <i class="center-line"></i>
+                             <time>2019-12-09 23:26:17</time>
+                         </p>
+                     </div>
+                     <div class="item-img">
+                         <img src="https://img.zhichiwangluo.com/zcimgdir/album/file_5de75b79e400d.png" alt="">
+                     </div></a>
+                 </li>
+                 <li class="news-item"><a href="/news/1328.html">
+                     <div class="item-text">
+                         <p class="item-title">微信小程序开发软件,微信小程序开发环境阿里云服务搭建+可运行的demo</p>
+                         <p class="item-text-bottom">
+                             <span class="author">北风萧萧</span>
+                             <i class="center-line"></i>
+                             <time>2019-12-09 23:26:17</time>
+                         </p>
+                     </div>
+                     <div class="item-img">
+                         <img src="https://img.zhichiwangluo.com/zcimgdir/album/file_5de75b79e400d.png" alt="">
+                     </div></a>
+                 </li>
+
+             </ul>
+         </div>
+       <div class="cooperate-enterprise">
+             <div class="title-wrap">
+                 <p>合作企业</p>
+             </div>
+             <ul class="enterprise-list">
+                 <li class="enterprise"><a href="javascript:;"><img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/microsoft.jpg" alt=""></a></li>
+                 <li class="enterprise"><a href="javascript:;"><img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/soho.jpg" alt=""></a></li>
+                 <li class="enterprise"><a href="javascript:;"><img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/ccb.jpg" alt=""></a></li>
+                 <li class="enterprise"><a href="javascript:;"><img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/tencent.jpg" alt=""></a></li>
+                 <li class="enterprise"><a href="javascript:;"><img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/alibaba.jpg" alt=""></a></li>
+                 <li class="enterprise"><a href="javascript:;"><img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/sony.jpg" alt=""></a></li>
+                 <li class="enterprise"><a href="javascript:;"><img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/wangyi.jpg" alt=""></a></li>
+                 <li class="enterprise"><a href="javascript:;"><img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/wuliangye.jpg" alt=""></a></li>
+                 <li class="enterprise"><a href="javascript:;"><img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/xinhuaribao.jpg" alt=""></a></li>
+             </ul>
+         </div>
+         <div class="try-section">
+             <p class="try-title">在咫尺&ensp;发现企业新转机</p>
+             <a class="try-btn" href="/index.php?r=login/Ulogin">免费体验</a>
+             <img src="http://cdn.jisuapp.cn/zhichi_frontend/static/webapp_mobile/index/img/try_bg.png" alt="">
+         </div>
+         <div class="select-template">
+             <a href="http://m.jisuapp.cn/merchant/">门店入驻</a><span class="devide-line"></span>
+             <a href="http://m.jisuapp.cn/vue/">小程序制作</a>
+         </div>-->
+        <!-- 引入footer -->
+               <!-- <p class="footer-text1">
+                    <span><a href="/make/">经典案例</a></span>
+                    <span class="switch20"><a href="/news/">新闻资讯</a></span>
+                    <span><a href="/intro/">功能介绍</a></span>
+                </p>
+                <p class="footer-text1"><a href="/aboutus/">关于我们</a></p>
+                <p class="footer-text2" style="width: 100%;">
+                    <span class="switch21"><a href="/agents/">代理加盟</a></span>
+                    <span><a href="/vip/">套餐服务</a></span>
+                    <span><a href="/exclusive/">定制服务</a></span>
+                </p>
+                <p class="footer-text2" style="margin-top: .14rem;width: 100%;">
+                    <span><a href="/match/">设计大赛</a></span>
+                    <span><a href="/NewCourse/">培训课程</a></span></p>
+                <p class="footer-line"></p>-->
+            </div>
+          <!--  <p class="browse-type" domain="http://www.jisuapp.cn"><a href="javascript:;" class="pc-href">电脑版</a><span class="center-border"></span><a href="javascript:;" onclick="window.location.reload()" class="mobile-href">手机版</a></p>
+            <p class="company">&copy;2015&ensp;咫尺网络科技开发有限公司</p>-->
+        </div>
+        <script type="text/javascript">
+            var domain = $(".browse-type").attr("domain"),
+                _path = domain + window.location.pathname + window.location.search;
+            _path += /\?/.test( _path ) ? "&from_wap=1" : "?from_wap=1";
+            $(".browse-type .pc-href").attr("href", _path);
+            // 针对ios':active'兼容性问题
+            document.body.addEventListener('touchstart', function () {});
+        </script>
+
+    </div>
+</div>
+<script type="text/javascript">
+    //获取点击量
+    function rate(obj){
+        $.ajax({
+            url:"/index.php?r=pc/Index/AddCaroluselPhotoCount",
+            type:"get",
+            dataType:"json",
+            data:{
+                id:$(obj).attr('data-img-id')
+
+            },
+            success:function(data){
+
+            }
+        })
+    }
+</script>
+</body>
+<style>
+    .footer-section{
+        padding-top: 0.54rem;
+        padding-bottom: 0.45rem;
+        height: 2.52rem;
+        background-color: #2E3033;
+        font-size: .24rem;
+        color: #fff;
+        margin-top: .55rem;
+    }
+
+</style>
+<script type="text/javascript">
+    // 导航栏
+    $('.page-wrap').scroll(function (){
+        // console.log($(this).scrollTop())
+        var o = Math.abs( ($(this).scrollTop()/45).toFixed(1) );
+        o = o > 1 ? 1 : o;
+        var _color = "rgba(48,145,242,"+ o +")";
+        $(".nav-wrap").css("background-color",_color);
+    })
+    // banner-swiper-container
+    $(".banner-section").slick({
+        dots: true,
+        arrows: false,
+        infinite: true
+    });
+    // new-slider
+    $(function (){
+        var arr = [],
+            classArr = ['prev-item','current-item','next-item'];
+        $('.banner-item').each(function (idx, itm){
+            arr[idx] = itm;
+        })
+        function classAct(){
+            arr.filter(function (itm, idx){
+                itm.className = 'banner-item ' + classArr[idx];
+            })
+            var idx = $(arr[1]).attr('slide-idx');
+            $('.case-intro.active').removeClass('active');
+            $('.case-intro').eq(idx).addClass('active');
+        }
+        // 滑动
+        $("#slide-section").swipe(
+            function (d){
+                // console.log(d)
+                switch (d){
+                    case 'right':
+                        arr.unshift( arr.pop() );
+                        classAct();
+                        break;
+                    case 'left':
+                        arr.push( arr.shift() );
+                        classAct();
+                        break;
+                    default:
+                        break;
+                }
+            },{
+                preventDefault: false,
+                mouse: true,
+                pen: true,
+                distance: 10
+            })
+        // 点击
+        $(".arrow-btn").click(function(event) {
+            var ty = $(this).attr('ty');
+            switch (ty){
+                case 'right':
+                    arr.unshift( arr.pop() );
+                    classAct();
+                    break;
+                case 'left':
+                    arr.push( arr.shift() );
+                    classAct();
+                    break;
+                default:
+                    break;
+            }
+        });
+    })
+    // 处理微信7.0.0自带浏览器的缓存导致a标签无法跳转的bug
+    var href = document.querySelector('.ad-book a');
+    href.ontouchend = function() {
+        var timestamp = Date.parse(new Date());
+        window.location.href=this.getAttribute('href') + '?date=' + timestamp;
+    }
+</script>
+</html>

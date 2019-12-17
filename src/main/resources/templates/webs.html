@@ -6,14 +6,61 @@
 
 
 <body>
-Test<br/>
-<input id="text" type="text" /><button onclick="send()">Send</button>    <button onclick="closeWebSocket()">Close</button>
-<div id="message">
+
+
+<div id="container" style="position: absolute;">
+    Test<br/>
+    <input id="text" type="text" /><button onclick="send()">Send</button>    <button onclick="closeWebSocket()">Close</button>
+    <div id="message">
+    </div>
+    <p> 男：今天是我们俩异地三周年的最后一天，我们分手吧！</p>
+    <p>   女：你个渣男！</p>
+    <p>  男：对，我是个渣男，你旁边的那个男孩是谁啊！</p>
+    <p>  女：我身边没有男孩子啊！</p>
+    <p>   男：你连撒谎的样子，都让我这么喜欢！赢家是你，我输的心甘情愿</p>
+
+    <h1 id="h1" class="transition-in"></h1>
+    <h2 id="h2" class="transition-in"></h2>
+
 </div>
+
+<canvas id="canvas" >
+</canvas>
+<div id="live2d-widget"><canvas id="live2dcanvas" width="200" height="400" style="position: fixed; opacity: 0.7; right: 70px; bottom: 0px; z-index: 99999; pointer-events: none;"></canvas></div>
 </body>
 
+<script src="../js/ct1.js"></script>
+<script src="../js/ct2.js"></script>
+<script src="../js/L2Dwidget.min.js"></script>
 
 <script type="text/javascript">
+
+    L2Dwidget.init({
+        "model": {
+            jsonPath: "../moc/hijiki.model.json",
+            "scale": 1
+        },
+        "display": {
+            "position": "right",<!--设置看板娘的上下左右位置-->
+            "width": 100,
+            "height": 200,
+            "hOffset": 70,
+            "vOffset": 0
+        },
+        "mobile": {
+            "show": true,
+            "scale": 0.5
+        },
+        "react": {
+            "opacityDefault": 0.7,<!--设置透明度-->
+            "opacityOnHover": 0.2
+        }
+    });
+
+    // window.onload = function(){
+    //     $("#live2dcanvas").attr("style","position: fixed; opacity: 0.7; left: 70px; bottom: 0px; z-index: 1; pointer-events: none;")
+    // }
+
     var websocket = null;
 
     //判断当前浏览器是否支持WebSocket
