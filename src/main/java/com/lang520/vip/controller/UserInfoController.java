@@ -3,10 +3,12 @@ package com.lang520.vip.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.lang520.vip.config.PayProducer;
 import com.lang520.vip.config.ProductWebSocket;
-import com.lang520.vip.dao.UserReposiory;
 import com.lang520.vip.entity.UserEntity;
 import com.lang520.vip.utils.FileUtil;
 import com.lang520.vip.utils.ThreadReptile;
+import com.spire.pdf.FileFormat;
+import com.spire.xls.Workbook;
+import com.spire.xls.Worksheet;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.log4j.Logger;
@@ -24,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.jws.Oneway;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -32,10 +33,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.Key;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.*;
 
 /**
@@ -50,17 +52,17 @@ public class UserInfoController {
     private static Logger log = Logger.getLogger(UserInfoController.class);
 
     private static String UPLOAD_PATH = "fileData/upload";
+
     /**
      * 单文件上传
      * @param files
-     * @param request
      * @param response
      * @return
      */
     @ApiOperation(value = "小文件上传")
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
-    public String upload(@RequestParam("file") MultipartFile files, HttpServletRequest request, HttpServletResponse response){
+    public String upload(@RequestParam("file") MultipartFile files, HttpServletRequest req, HttpServletResponse response){
         JSONObject json=new JSONObject();
         response.setCharacterEncoding("utf-8");
         String msg = "添加成功";
@@ -73,6 +75,11 @@ public class UserInfoController {
                 Files.createDirectories(directory);
             }
             files.transferTo(directory.resolve(name));
+           String url = req.getScheme() //当前链接使用的协议
+                    +"://" + req.getServerName()//服务器地址
+                    + ":" + req.getServerPort() //端口号
+                    + req.getContextPath()+UPLOAD_PATH+"/"+ name;
+            json.put("url", url);//返回的访问地址
         }catch(Exception e){
             msg="添加失败";
         }
@@ -82,12 +89,87 @@ public class UserInfoController {
     }
 
     /**
+     * 玩玩多线程
+     * @return
+     */
+    @ApiOperation(value = "删除文件")
+    @ResponseBody
+    @RequestMapping(value = "/delImg", method = RequestMethod.GET)
+    private String delImg(HttpServletRequest request,String imgName) throws Exception{
+      /*  String str = "https://admin.app.junshice.net/fileData/upload/123.jpg";
+       */
+        Path resolve = Paths.get(UPLOAD_PATH).resolve(imgName);
+
+        File file = new File(resolve.toString());
+//        System.out.println(request.getSession().getServletContext().getRealPath("/fileData/upload/"+imgName));
+//
+//        boolean delete = new File(request.getSession().getServletContext().getRealPath("/fileData/upload/"+imgName)).delete();
+        boolean delete = file.delete();
+        return delete?"删除成功":"删除失败";
+//        File directory = new File("");
+//        System.out.println(directory.getCanonicalPath());//获取标准的路径
+//        System.out.println(directory.getAbsolutePath());//获取绝对路径
+
+
+//        boolean delete = new File(directory.getCanonicalPath()+"/fileData/upload/123.jpg").delete();
+//
+//        return delete?"删除成功":"删除失败";
+    }
+
+    /*public static void main(String[] args) {
+        //加载Excel工作表
+        Workbook wb = new Workbook();
+        wb.loadFromFile("C:\\Users\\aipinyue\\Desktop\\test1.xlsx");
+
+        //获取工作表
+        Worksheet sheet = wb.getWorksheets().get(0);
+
+        //调用方法将Excel工作表保存为图片
+        sheet.saveToImage("C:\\Users\\aipinyue\\Desktop\\ToImg.png");
+        //调用方法，将指定Excel单元格数据范围保存为图片
+        //sheet.saveToImage("ToImg2.png",8,1,30,7);
+
+        //调用方法将Excel保存为HTML
+        sheet.saveToHtml("C:\\Users\\aipinyue\\Desktop\\ToHtml.html");
+
+ *//*       //调用方法将Excel保存为XPS
+        sheet.saveToFile("ToXPS.xps", String.valueOf(FileFormat.XPS));
+
+        //调用方法将Excel保存为CSV
+        sheet.saveToFile("ToCSV.csv", String.valueOf(FileFormat.CSV));
+
+        //调用方法将Excel保存为XML
+        sheet.saveToFile("ToXML.xml", String.valueOf(FileFormat.XML));
+
+        //调用方法将Excel保存为PostScript
+        sheet.saveToFile("ToPostScript.postscript", String.valueOf(FileFormat.PostScript));
+
+        //调用方法将Excel保存为PCL
+        sheet.saveToFile("ToPCL.pcl", String.valueOf(FileFormat.PCL));*//*
+    }*/
+
+
+
+    /**
      * 用来测试的一些东西
      * @return
      */
     @ApiOperation(value = "获取分片上传页面")
     @RequestMapping(value = "/test", method = RequestMethod.GET)
-    private String test(){
+    private String test( HttpServletRequest req){
+        String requestUrl = req.getScheme() //当前链接使用的协议
+                +"://" + req.getServerName()//服务器地址
+                + ":" + req.getServerPort() //端口号
+                + req.getContextPath() //应用名称，如果应用名称为
+                + req.getServletPath() //请求的相对url
+               ;
+
+        System.out.println( req.getScheme());
+        System.out.println(req.getServerName());
+        System.out.println(req.getServerPort());
+        System.out.println(req.getContextPath());
+        System.out.println(req.getServletPath());
+        System.out.println(requestUrl);
         return "test";
     }
 
@@ -233,7 +315,7 @@ public class UserInfoController {
             // 判断文件是否分块
             if (chunks != null && chunk != null) {
                 index = Integer.parseInt(chunk);
-                fileName = String.valueOf(index) + ext;
+                fileName = index + ext;
                 // 将文件分块保存到临时文件夹里，便于之后的合并文件
                 FileUtil.saveFile(mergePath, fileName, file, request);
                 // 验证所有分块是否上传成功，成功的话进行合并
@@ -312,4 +394,13 @@ public class UserInfoController {
         return userReposiory.findByUsername(username);
     }
 */
+
+   /* public static void main(String[] args) {
+        List<UserEntity> userEntityList = new ArrayList<>();
+        userEntityList.add(new UserEntity("1"));
+        userEntityList.add(new UserEntity("2"));
+        userEntityList.add(new UserEntity("3"));
+        userEntityList.add(new UserEntity("4"));
+        userEntityList.forEach(c -> System.out.println(c.getUsername()));
+    }*/
 }

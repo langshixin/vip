@@ -3,11 +3,32 @@ package com.lang520.vip;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class VipApplicationTests {
 
     @Test
     void contextLoads() {
+    }
+    @Test
+    void contextLoads2() {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+        Date d=null;
+        try {
+            d=f.parse("2019-12-19 18:09:00");
+        } catch (ParseException e) {
+
+            e.printStackTrace();
+        }
+        cal.setTime(d);
+        int w=cal.get(Calendar.DAY_OF_WEEK)-1;
+        if(w==0) w=7;
+        System.out.println("星期"+w);
     }
 
   /*  @Test

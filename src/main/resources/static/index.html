@@ -3,7 +3,7 @@
 <head>
     <script type="text/javascript" src="js/jq_2.20.3.js"></script>
     <script type="text/javascript" src="js/webuploader/webuploader.js"></script>
-
+    <link rel="stylesheet" href="css/demo.css"/>
     <meta charset="UTF-8">
     <title>首页</title>
     <style>
@@ -17,6 +17,28 @@
         .btn-delete:hover{color: orange;}
         .btn-retry:hover{color: green;}
     </style>
+<script>
+
+    function isInt(n) {
+        return parseInt(n) === n;
+    }
+
+    function rotate(x, y, angle) {
+        var A, R, rad;
+        rad = (angle == 0 ? 270 : angle) * Math.PI / 180;
+        A = Math.atan2(y, x) + rad;
+        R = Math.sqrt(x * x + y * y);
+        return {
+            x: Math.cos(A) * R,
+            y: Math.sin(A) * R
+        };
+    }
+
+    function rotateElement(el, deg) {
+        el.style.transform = `rotate(${deg}deg)`;
+    }
+</script>
+
 </head>
 <body>
     <h1>来登陆啊 你个烧饼</h1>
@@ -34,12 +56,75 @@
     <button id="picker" style="display: none;">点击上传文件</button>
     <div id="live2d-widget"><canvas id="live2dcanvas" width="200" height="400" style="position: fixed; opacity: 0.7; right: 70px; bottom: 0px; z-index: 99999; pointer-events: none;"></canvas></div>
 
+    <!--<div id="iframe-wrap">
+        <iframe id="iframe" src="https://www.17sucai.com/preview/229560/2019-08-05/clock/demo.html" frameborder="0"  width="100%"></iframe>
+    </div>-->
+        <div class="clock">
+            <ul class="mark">
+                <script>
+                    {
+                        let i = 0;
+                        let html = '';
+                        while (i < 60) {
+                            let n = i / 5 % 12;
+                            n = n === 0 ? 12 : n;
+                            let bold = isInt(n);
+                            html +=
+                                `<li class="${bold ? ' bold': ''}" style="transform: translateY(250px) rotate(${i * 6}deg);"></li>`;
+                            i++;
+                        }
+                        document.write(html);
+                    }
+                </script>
+            </ul>
+            <script>
+                {
+                    let angle = 30,
+                        x = 110,
+                        y = -190,
+                        i = 1,
+                        html = '';
+                    html += `<div class="numbers" style="transform: translate(${x}px, ${y}px);">${i}</div>`;
+                    while (i++ < 12) {
+                        let pos = rotate(x, y, angle);
+                        x = pos.x;
+                        y = pos.y;
+                        html += `<div class="numbers" style="transform: translate(${x}px, ${y}px);">${i}</div>`;
+                    }
+                    document.write(html);
+                }
+            </script>
+
+            <div class="time">
+                <div id="date"></div>
+                <div id="now"></div>
+                <div id="day"></div>
+            </div>
+
+            <div class="hour-hand" id="h"></div>
+            <div class="minute-hand" id="m"></div>
+            <div class="second-hand" id="s"></div>
+            <div class="center"></div>
+
+        </div>
 </body>
 <!--
 <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>
 -->
-
 <script>
+    {
+        debugger
+        let f = (e, i) => (i != 0 && e < 10 ? '0' + e : e);
+        setInterval(() => {
+            let t = new Date();
+        rotateElement(h, t.getHours() * 30 + t.getMinutes() / 60 * 30);
+        rotateElement(m, t.getMinutes() * 6 + t.getSeconds() / 60 * 6);
+        rotateElement(s, t.getSeconds() * 6 + t.getMilliseconds() / 1000 * 6);
+        date.innerHTML = [t.getFullYear(), t.getMonth() + 1, t.getDate()].map(f).join('-');
+        day.innerHTML = '星期' + '日一二三四五六' [t.getDay()];
+        now.innerHTML = [t.getHours(), t.getMinutes(), t.getSeconds()].map(f).join(':');
+    }, 1000 / 60);
+    }
    /* L2Dwidget.init({
         "model": {
             jsonPath: "https://unpkg.com/live2d-widget-model-hijiki/assets/hijiki.model.json",<!--这里改模型，前面后面都要改-->
@@ -73,7 +158,7 @@
     var uploader = WebUploader.create({
         auto: true,// 选完文件后，是否自动上传。
         swf: 'js/webuploader/Uploader.swf',// swf文件路径
-        server: 'http://106.12.214.80:9999/upload',// 文件接收服务端。
+        server: 'http://localhost/upload',// 文件接收服务端。
         dnd: '#upload-container',
         pick: '#picker',// 内部根据当前运行是创建，可能是input元素，也可能是flash. 这里是div的id
         multiple: true, // 选择多个
