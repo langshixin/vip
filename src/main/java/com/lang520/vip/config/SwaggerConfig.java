@@ -42,6 +42,7 @@ public class SwaggerConfig {
                 .contact("langshixin")
                 //版本号
                 .version("1.0")
+                .termsOfServiceUrl("http://localhost/doc.html")
                 //描述
                 .description("闹着玩API")
                 .build();

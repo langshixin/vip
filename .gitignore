@@ -29,3 +29,8 @@ build/
 
 ### VS Code ###
 .vscode/
+fileData/upload/123.jpg
+fileData/upload/video/2020/01/07/1578361169037.mp4
+*.log
+log4j2Logs/vip-ERROR-2020-01-10_1.log.gz
+*.gz

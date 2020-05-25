@@ -37,24 +37,51 @@ public class ProductWebSocket {
 
     private Logger log = LoggerFactory.getLogger(ProductWebSocket.class);
 
+    public String getSid() {
+        return sid;
+    }
+
+    public void setSid(String sid) {
+        this.sid = sid;
+    }
+
+    /*获取在线用户*/
+    public static CopyOnWriteArraySet getOnlineUser(){
+        return webSocketSet;
+    }
+
     /**
      * 连接建立成功调用的方法
      */
     @OnOpen
     public void onOpen(@PathParam("userId")String userId, Session session) {
+
+        //如果新用户已存在则不连进来
+        boolean flag = true;
+        if(!webSocketSet.isEmpty()){
+            for (ProductWebSocket productWebSocket : webSocketSet) {
+                if(productWebSocket.sid.equals(userId)){
+                    webSocketSet.remove(productWebSocket); // 从set中删除
+                    subOnlineCount(); // 在线数减1
+                    break;
+                }
+            }
+        }
+
+
+
         log.info("新客户端连入，用户id：" + userId);
         this.session = session;
         this.sid = userId;
         webSocketSet.add(this); // 加入set中
         addOnlineCount(); // 在线数加1
         if(userId!=null) {
-            List<String> totalPushMsgs = new ArrayList<String>();
-            totalPushMsgs.add(userId+"连接成功-"+"-当前在线人数为："+getOnlineCount());
-
-
-            if(totalPushMsgs != null && !totalPushMsgs.isEmpty()) {
+//            List<String> totalPushMsgs = new ArrayList<String>();
+//            totalPushMsgs.add(userId+"连接成功-"+"-当前在线人数为："+getOnlineCount());
+            sendMessage(userId+"连接成功-"+"-当前在线人数为："+getOnlineCount());
+            /*if(totalPushMsgs != null && !totalPushMsgs.isEmpty()) {
                 totalPushMsgs.forEach(e -> sendMessage(e));
-            }
+            }*/
         }
 
     }
@@ -95,6 +122,7 @@ public class ProductWebSocket {
             log.info("推送消息成功，消息为：" + message);
         } catch (IOException e) {
             e.printStackTrace();
+            log.info("推送消息失败，消息为：" + message);
         }
     }
 

@@ -13,11 +13,11 @@
     <input id="text" type="text" /><button onclick="send()">Send</button>    <button onclick="closeWebSocket()">Close</button>
     <div id="message">
     </div>
-    <p> 男：今天是我们俩异地三周年的最后一天，我们分手吧！</p>
+    <!--<p> 男：今天是我们俩异地三周年的最后一天，我们分手吧！</p>
     <p>   女：你个渣男！</p>
     <p>  男：对，我是个渣男，你旁边的那个男孩是谁啊！</p>
     <p>  女：我身边没有男孩子啊！</p>
-    <p>   男：你连撒谎的样子，都让我这么喜欢！赢家是你，我输的心甘情愿</p>
+    <p>   男：你连撒谎的样子，都让我这么喜欢！赢家是你，我输的心甘情愿</p>-->
 
     <h1 id="h1" class="transition-in"></h1>
     <h2 id="h2" class="transition-in"></h2>
@@ -66,7 +66,7 @@
     //判断当前浏览器是否支持WebSocket
     if('WebSocket' in window){
         //连接WebSocket节点
-        websocket = new WebSocket("ws://localhost:9999/productWebSocket/001");
+        websocket = new WebSocket("ws://368fc834.ngrok.io/productWebSocket/001");
     }
     else{
         alert('Not support websocket')
@@ -85,7 +85,7 @@
 
     //接收到消息的回调方法
     websocket.onmessage = function(event){
-        setMessageInnerHTML(event.data);
+        setMessageInnerHTML("系统回复："+event.data);
     }
 
     //连接关闭的回调方法
@@ -111,10 +111,11 @@
 
     //发送消息
     function send(){
-        debugger
-
         var message = document.getElementById('text').value;
         websocket.send(message);
+        document.getElementById('text').value = "";
+        setMessageInnerHTML("我："+message);
+
     }
 </script>
 </html>

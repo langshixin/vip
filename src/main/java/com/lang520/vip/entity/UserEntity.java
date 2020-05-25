@@ -3,6 +3,9 @@ package com.lang520.vip.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+
 /**
  * @author LSX
  * @version 1.0
@@ -12,6 +15,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 public class UserEntity {
     @Id
     private int id;
+    @NotBlank(message = "名字就不能为空")
     private String username;
     private int sex;
     private int age;

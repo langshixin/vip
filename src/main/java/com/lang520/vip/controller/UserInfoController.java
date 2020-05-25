@@ -6,28 +6,24 @@ import com.lang520.vip.config.ProductWebSocket;
 import com.lang520.vip.entity.UserEntity;
 import com.lang520.vip.utils.FileUtil;
 import com.lang520.vip.utils.ThreadReptile;
-import com.spire.pdf.FileFormat;
-import com.spire.xls.Workbook;
-import com.spire.xls.Worksheet;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.log4j.Logger;
 import org.apache.rocketmq.client.exception.MQBrokerException;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.remoting.exception.RemotingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -39,6 +35,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
 
 /**
  * @author LSX
@@ -49,7 +46,8 @@ import java.util.concurrent.*;
 @Api(description = "闹着玩接口")
 @Controller
 public class UserInfoController {
-    private static Logger log = Logger.getLogger(UserInfoController.class);
+//    private static Logger log = Logger.getLogger(UserInfoController.class);
+      private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(UserInfoController.class);
 
     private static String UPLOAD_PATH = "fileData/upload";
 
@@ -88,21 +86,39 @@ public class UserInfoController {
         return json.toString();
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/notNull", method = RequestMethod.POST)
+    private String notNull(@Valid @RequestBody UserEntity er) {
+
+        /*if(result.hasErrors()){
+            return result.getFieldError().getDefaultMessage();
+        }*/
+        System.out.println(er.getUsername());
+
+        return "不能为空啊！！";
+    }
+
+    @ExceptionHandler
+    @ResponseBody
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public String handleException(MethodArgumentNotValidException exception) {
+        String defaultMessage = exception.getBindingResult().getFieldError().getDefaultMessage();
+        return defaultMessage;
+    }
+
     /**
-     * 玩玩多线程
+     * 删除文件
      * @return
      */
     @ApiOperation(value = "删除文件")
     @ResponseBody
     @RequestMapping(value = "/delImg", method = RequestMethod.GET)
-    private String delImg(HttpServletRequest request,String imgName) throws Exception{
-      /*  String str = "https://admin.app.junshice.net/fileData/upload/123.jpg";
-       */
+    private String delImg(HttpServletRequest request,String imgName){
+      /*String str = "https://admin.app.junshice.net/fileData/upload/123.jpg";*/
         Path resolve = Paths.get(UPLOAD_PATH).resolve(imgName);
 
         File file = new File(resolve.toString());
 //        System.out.println(request.getSession().getServletContext().getRealPath("/fileData/upload/"+imgName));
-//
 //        boolean delete = new File(request.getSession().getServletContext().getRealPath("/fileData/upload/"+imgName)).delete();
         boolean delete = file.delete();
         return delete?"删除成功":"删除失败";
@@ -112,11 +128,10 @@ public class UserInfoController {
 
 
 //        boolean delete = new File(directory.getCanonicalPath()+"/fileData/upload/123.jpg").delete();
-//
 //        return delete?"删除成功":"删除失败";
     }
 
-    /*public static void main(String[] args) {
+  /* public static void main(String[] args) {
         //加载Excel工作表
         Workbook wb = new Workbook();
         wb.loadFromFile("C:\\Users\\aipinyue\\Desktop\\test1.xlsx");
@@ -125,14 +140,15 @@ public class UserInfoController {
         Worksheet sheet = wb.getWorksheets().get(0);
 
         //调用方法将Excel工作表保存为图片
-        sheet.saveToImage("C:\\Users\\aipinyue\\Desktop\\ToImg.png");
+        sheet.saveToImage("C:\\Users\\aipinyue\\Desktop\\ToImg.png");*/
         //调用方法，将指定Excel单元格数据范围保存为图片
         //sheet.saveToImage("ToImg2.png",8,1,30,7);
 
-        //调用方法将Excel保存为HTML
+      /*
+      //调用方法将Excel保存为HTML
         sheet.saveToHtml("C:\\Users\\aipinyue\\Desktop\\ToHtml.html");
 
- *//*       //调用方法将Excel保存为XPS
+       //调用方法将Excel保存为XPS
         sheet.saveToFile("ToXPS.xps", String.valueOf(FileFormat.XPS));
 
         //调用方法将Excel保存为CSV
@@ -145,7 +161,7 @@ public class UserInfoController {
         sheet.saveToFile("ToPostScript.postscript", String.valueOf(FileFormat.PostScript));
 
         //调用方法将Excel保存为PCL
-        sheet.saveToFile("ToPCL.pcl", String.valueOf(FileFormat.PCL));*//*
+        sheet.savetofile("ToPCL.pcl", String.valueOf(FileFormat.PCL));
     }*/
 
 
@@ -174,6 +190,17 @@ public class UserInfoController {
     }
 
     /**
+     * 用来测试的一些东西
+     * @return
+     */
+    @ApiOperation(value = "首页")
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    private String index(){
+
+        return "index";
+    }
+
+    /**
      * 用来测试websocket
      * @return
      */
@@ -197,7 +224,7 @@ public class UserInfoController {
      * 玩玩多线程
      * @return
      */
-    @ApiOperation(value = "玩玩多线程")
+    @ApiOperation(value = "测试多线程")
     @ResponseBody
     @RequestMapping(value = "/threadTrue", method = RequestMethod.GET)
     private String threadTrue(){
@@ -234,6 +261,18 @@ public class UserInfoController {
         return "OK";
     }
 
+    @ApiOperation(value = "获取在线人数")
+    @RequestMapping(value = "/getOnlineUser", method = RequestMethod.GET)
+    @ResponseBody
+    private List<String>  getOnlineUser(){
+        CopyOnWriteArraySet<ProductWebSocket> onlineUser = ProductWebSocket.getOnlineUser();
+        List<String> sic = onlineUser.stream().map(c -> {
+            return c.getSid();
+        }).collect(Collectors.toList());
+        return sic;
+    }
+
+
     /**
      * 用来测试websocket通过服务端给前端推送消息
      * @return
@@ -249,6 +288,15 @@ public class UserInfoController {
         }
         return "OK";
     }
+
+    @ApiOperation(value = "生成二维码")
+    @RequestMapping(value = "/getQrCode", method = RequestMethod.GET)
+    private String qRCode(){
+
+        return "qrCode";
+    }
+
+
 
 
     @Autowired
@@ -403,4 +451,30 @@ public class UserInfoController {
         userEntityList.add(new UserEntity("4"));
         userEntityList.forEach(c -> System.out.println(c.getUsername()));
     }*/
+
+    public static void main(String[] args) {
+        List a = new ArrayList();
+        a.add(1);
+        a.add(2);
+        a.add(3);
+        a.add(4);
+        a.add(5);
+        System.out.println(a.size());
+
+        Object set = a.set(2, 8);
+        System.out.println(set);
+        System.out.println(a.size());
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }
